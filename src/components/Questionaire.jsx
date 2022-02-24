@@ -1,30 +1,51 @@
 import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
 function Questionaire({ data: {question, correct_answer, incorrect_answers}}) {
     const [selected, setSelected] = useState(false)
+    const [blockCorrect, setBlockCorrect] = useState(false)
+    const [shuffledAnswer, setshuffledAnswer] = useState([])
+    const dispatch = useDispatch()
+    const page = useSelector(state => state.page)
 
-    const shuffledAnswer = [correct_answer, ...incorrect_answers].sort(()=> Math.random() - 0.5)
+    useEffect(()=>{
+        shuffled()
+        document.querySelectorAll('.answer').forEach(answer => {
+            answer.id = ''
+        })
+        setBlockCorrect(false)
+        setSelected(false)
+    }, [page])
+
+    const shuffled = () => {
+        setshuffledAnswer([correct_answer, ...incorrect_answers].sort(()=> Math.random() - 0.5))
+    }
 
     const handleClick = (e) => {
         document.querySelectorAll('.answer').forEach(answer => {
             answer.id = ''
         })
-        if(e.target.classList.contains('correct')) {
-            console.log('resposta correta')
-        }
         e.target.id = 'selected'
         setSelected(true)
+
+        if(e.target.classList.contains('correct')) {
+            if(blockCorrect) return
+
+            dispatch({type:'CORRECT_ANSWER'})
+            setBlockCorrect(true)
+        }
     }
 
     const renderAnswers = (answers) => {
-        
         return answers.map((answer, index) =>
-            
             (answer) === correct_answer ? (
-                <div key={index} className='shadow-sm p-3 mb-5 rounded answer correct' onClick={handleClick}>{answer}</div>
+                <div key={index} className='shadow-sm p-3 mb-5 rounded answer correct' 
+                onClick={handleClick}>{answer}
+                </div>
             ) : (
-
-                <div key={index} className='shadow-sm p-3 mb-5 rounded answer' onClick={handleClick}>{answer}</div>
+                <div key={index} className='shadow-sm p-3 mb-5 rounded answer' 
+                onClick={handleClick}>{answer}
+                </div>
             )            
         )
     }
@@ -35,8 +56,10 @@ function Questionaire({ data: {question, correct_answer, incorrect_answers}}) {
         <div className='quizAnswers'>
             {renderAnswers(shuffledAnswer)}
         </div>
+
         {selected ? (
-            <button className='btn btn-lg btn-success btn-proximo btn-green border border-dark'>Próximo</button>
+            <button className='btn btn-lg btn-success btn-proximo btn-green border border-dark'
+            onClick={()=>{dispatch({type:'CHANGE_PAGE'})}}>Próximo</button>
         ) : (
             <button className='btn btn-lg btn-secondary btn-proximo'>Próximo</button>
         )}

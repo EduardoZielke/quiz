@@ -18,7 +18,15 @@ function App() {
 
   const handleChange = (e) => {
     if(e.target.id === 'selectTheme') {
+      if(e.target.value === 'any') {
+        setCategory(null)
+        return
+      }
       setCategory(e.target.value)
+      return
+    }
+    if(e.target.value === 'any'){
+      setDifficulty(null)
       return
     }
     setDifficulty(e.target.value)
@@ -34,6 +42,7 @@ function App() {
           <div className='selectsWrapper'>
             <label htmlFor='selectTheme'>Select Category:
               <select className='selectTheme form-select' id='selectTheme' onChange={handleChange}>
+                <option value='any'>Any Category</option>
                 <option value='23'>History</option>
                 <option value='9'>General Knowledge</option>
                 <option value='24'>Politics</option>
@@ -41,9 +50,10 @@ function App() {
             </label>
             <label htmlFor='selectDifficulty'>Select Difficulty:
               <select className='selectDifficulty form-select' id='selectDifficulty' onChange={handleChange}>
-                <option value='easy'>Facil</option>
-                <option value='medium'>médio</option>
-                <option value='hard'>Dificil</option>
+                <option value='any'>Any Difficulty</option>
+                <option value='easy'>Easy</option>
+                <option value='medium'>Medium</option>
+                <option value='hard'>Hard</option>
               </select>
             </label>
           </div>

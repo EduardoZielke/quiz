@@ -1,6 +1,7 @@
 export const initialState = {
-    url: 'https://opentdb.com/api.php?amount=10&category=24&difficulty=medium&type=multiple', 
-    right_answers: 0
+    url: '', 
+    right_answers: 0,
+    page: 0
 }
 
 export const quizReducer = (state, action) => {
@@ -11,12 +12,16 @@ export const quizReducer = (state, action) => {
                 url: action.url
             }
         }
-        
         case 'CORRECT_ANSWER':
             return {
                 ...state,
                 right_answers: state.right_answers + 1
-            }            
+            }
+        case 'CHANGE_PAGE':
+            return {
+                ...state,
+                page: state.page + 1
+            }         
         default:
             return state
     }
