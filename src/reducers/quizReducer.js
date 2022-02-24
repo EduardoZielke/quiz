@@ -1,5 +1,5 @@
 export const initialState = {
-    url: '', 
+    url: 'https://opentdb.com/api.php?amount=10&category=24&difficulty=medium&type=multiple', 
     right_answers: 0
 }
 
