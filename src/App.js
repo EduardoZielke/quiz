@@ -49,7 +49,7 @@ function App() {
           </div>
           <div className='btnStart'>
             {category && difficulty ? (
-              <button className='btn btn-success' onClick={setUrl}>Start</button>
+              <button className='btn btn-success btn-green border border-dark' onClick={setUrl}>Start</button>
             ) : (
               <button className='btn btn-secondary'>Start</button>
             )}
