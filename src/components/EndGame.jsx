@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 
 function EndGame() {
     const right_answers = useSelector(state => state.right_answers)
-    const history = useSelector(state => state.history) 
+    const history = useSelector(state => state.history)
 
     const renderHistory = (array) => {
         return array.map((item, index) => <>
@@ -24,7 +24,8 @@ function EndGame() {
 
         <div className='result'>
             <div className='resultNumber'>
-                <h1 className='text-light'>Você acertou 5/10 questões!</h1>
+                <span className='emoji'>&#128512;</span>
+                <h1>Você acertou 5/10 questões!</h1>
             </div>
         </div>
 
