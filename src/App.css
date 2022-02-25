@@ -1,6 +1,6 @@
 .app {
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  min-height: 100vh;
   background-image: radial-gradient(circle at 50% -20.71%, #b99ae8 0, #9883e0 25%, #6c6cd8 50%, #2258d0 75%, #0048c9 100%);
   display: flex;
   flex-direction: column;
@@ -96,6 +96,12 @@
   user-select: none;
 }
 
+.resultAnswer {
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+}
+
 .answer:hover {
   transition: transform 200ms ease-in;
   transform: scale(1.02);
@@ -118,4 +124,12 @@
   height: 70px;
 }
 
+.endGameWrapper {
+  width: 80%;
+  text-align: center;
+}
+
+.result {
+  height: 100vh;
+}
 
