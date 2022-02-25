@@ -9,7 +9,7 @@ function Quiz({url}) {
     const state = useSelector(state => state)
 
     useEffect(()=>{
-        console.log(state.history);
+        console.log(state);
     }, [state])
 
     useEffect(()=>{

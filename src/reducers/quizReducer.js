@@ -33,7 +33,14 @@ export const quizReducer = (state, action) => {
             return {
                 ...state,
                 page: state.page + 1
-            }         
+            }
+        case 'PLAY_AGAIN':
+            return {
+                url: '', 
+                right_answers: 0,
+                history: [],
+                page: 0
+            }     
         default:
             return state
     }

@@ -1,9 +1,41 @@
-import React from 'react'
-import {useSelector} from 'react-redux'
+import React, {useState} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 
 function EndGame() {
+    const [analyze, setAnalyze] = useState(false)
     const right_answers = useSelector(state => state.right_answers)
     const history = useSelector(state => state.history)
+    const dispatch = useDispatch()
+
+    const renderResult = (right_answers) => {
+        if(right_answers < 6) {
+            return (
+            <div className='resultNumber'>
+                <span className='emoji'>&#128517;</span>
+                <h1>You got {right_answers} out of 10 questions correct!</h1>
+                <p className='red-color'>Keep trying and you'll make it</p>
+            </div>
+            )
+        } else if(right_answers < 8) {
+            return (
+            <div className='resultNumber'>
+                <span className='emoji'>&#128512;</span>
+                <h1>You got {right_answers} out of 10 questions correct!</h1>
+                <p className='blue-color'>You are good with it!</p>
+            </div>)
+        } else {
+            return (
+            <div className='resultNumber'>
+                <span className='emoji'>&#128513;</span>
+                <h1>You got {right_answers} out of 10 questions correct!</h1>
+                <p className='green-color'>You're rocking this!</p>
+            </div>)
+        }
+    }
+
+    const playAgain = () => {
+        dispatch({type:'PLAY_AGAIN'})
+    }
 
     const renderHistory = (array) => {
         return array.map((item, index) => <>
@@ -23,45 +55,24 @@ function EndGame() {
       <div className='endGameWrapper'>
 
         <div className='result'>
-            <div className='resultNumber'>
-                <span className='emoji'>&#128512;</span>
-                <h1>Você acertou 5/10 questões!</h1>
+            {renderResult(right_answers)}
+            <div className='resultButtons'>
+                <button className='btn btn-lg btn-success border border-dark'
+                onClick={playAgain}>Play Again</button>
+                <button className='btn btn-lg btn-primary border border-dark'
+                onClick={()=>{setAnalyze(true)}}>Analyze Answers</button>
             </div>
         </div>
 
-        <h1 className='shadow-lg p-3 mb-5 bg-white rounded question mt-5'>testando e</h1>
-        <div className='quizAnswers'>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-        </div>
-
-        <h1 className='shadow-lg p-3 mb-5 bg-white rounded question mt-5'>testando e</h1>
-        <div className='quizAnswers'>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-        </div>
-
-        <h1 className='shadow-lg p-3 mb-5 bg-white rounded question mt-5'>testando e</h1>
-        <div className='quizAnswers'>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-        </div>
-
-        <h1 className='shadow-lg p-3 mb-5 bg-white rounded question mt-5'>testando e</h1>
-        <div className='quizAnswers'>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-            <div className='shadow-sm p-3 mb-4 rounded resultAnswer'>Aqui vai as respostas</div>
-        </div>
-
-        
+        {analyze && (
+            <div>
+                {(renderHistory(history))}
+                <div className='playAgainAnalyze'>
+                    <button className='btn btn-lg btn-success border border-dark'
+                    onClick={playAgain}>Play Again</button>
+                </div>
+            </div>
+        )}
 
       </div> 
   )

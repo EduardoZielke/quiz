@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import EndGame from './EndGame'
 
 function Questionaire({ data: {question, correct_answer, incorrect_answers}}) {
     const [selected, setSelected] = useState(false)
     const [choosed, setChoosed] = useState('')
     const [blockCorrect, setBlockCorrect] = useState(false)
     const [shuffledAnswer, setshuffledAnswer] = useState([])
-    const dispatch = useDispatch()
     const page = useSelector(state => state.page)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
-        console.log(page)
         shuffled()
         document.querySelectorAll('.answer').forEach(answer => {
             answer.id = ''
