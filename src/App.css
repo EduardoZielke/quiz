@@ -100,7 +100,7 @@
 .resultAnswer {
   background-color: white;
   width: 100%;
-  max-width: 360px;
+  max-width: 350px;
 }
 
 .answer:hover {
@@ -110,6 +110,12 @@
 
 #selected {
   background-color: #194fc6;
+  border: 1px solid black;
+  color: white;
+}
+
+.bg-green {
+  background-color: rgb(7, 121, 7);
   border: 1px solid black;
   color: white;
 }

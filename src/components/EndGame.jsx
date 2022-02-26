@@ -1,11 +1,19 @@
 import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import AnalyzeAnswers from './AnalyzeAnswers'
 
 function EndGame() {
     const [analyze, setAnalyze] = useState(false)
     const right_answers = useSelector(state => state.right_answers)
     const history = useSelector(state => state.history)
     const dispatch = useDispatch()
+
+    const handleAnalyze = () => {
+        setAnalyze(true)
+        setTimeout(()=>{
+            window.scrollBy(0, window.innerHeight - 20);
+        }, 100)
+    }
 
     const renderResult = (right_answers) => {
         if(right_answers < 6) {
@@ -38,13 +46,20 @@ function EndGame() {
     }
 
     const renderHistory = (array) => {
-        return array.map((item, index) => <>
+        return array.map((item, index) => 
+            <>
                 <h1 key={index} className='shadow p-3 mb-5 bg-white rounded question' 
                 dangerouslySetInnerHTML={{__html: item.question}} />    
                 <div className='quizAnswers'>
-                    {item.answers.map((answer, index) => 
-                        <div key={index} className='shadow-sm p-3 mb-5 rounded answer'
-                         dangerouslySetInnerHTML={{__html: answer}} />    
+                    {item.answers.map((answer, index) => {
+                        return (
+                            <AnalyzeAnswers 
+                            key={index} 
+                            answer={answer} 
+                            correct_answer={item.correct_answer} 
+                            choosed={item.choosed}/>
+                        )
+                        }
                     )}
                 </div>
             </>
@@ -60,12 +75,12 @@ function EndGame() {
                 <button className='btn btn-lg btn-success border border-dark'
                 onClick={playAgain}>Play Again</button>
                 <button className='btn btn-lg btn-primary border border-dark'
-                onClick={()=>{setAnalyze(true)}}>Analyze Answers</button>
+                onClick={handleAnalyze}>Analyze Answers</button>
             </div>
         </div>
 
         {analyze && (
-            <div>
+            <div id='historyWrapper'>
                 {(renderHistory(history))}
                 <div className='playAgainAnalyze'>
                     <button className='btn btn-lg btn-success border border-dark'

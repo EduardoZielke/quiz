@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Quiz from './components/Quiz'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -16,16 +16,23 @@ function App() {
     })
   }
 
+  useEffect(()=>{
+
+    setCategory(null)
+    setDifficulty(null)
+    
+  }, [url])
+
   const handleChange = (e) => {
     if(e.target.id === 'selectTheme') {
-      if(e.target.value === 'any') {
+      if(e.target.value === 'none') {
         setCategory(null)
         return
       }
       setCategory(e.target.value)
       return
     }
-    if(e.target.value === 'any'){
+    if(e.target.value === 'none'){
       setDifficulty(null)
       return
     }
@@ -42,7 +49,7 @@ function App() {
           <div className='selectsWrapper'>
             <label htmlFor='selectTheme'>Select Category:
               <select className='selectTheme form-select' id='selectTheme' onChange={handleChange}>
-                <option value='any'>Any Category</option>
+                <option value='none'>None Selected</option>
                 <option value='23'>History</option>
                 <option value='9'>General Knowledge</option>
                 <option value='24'>Politics</option>
@@ -50,7 +57,7 @@ function App() {
             </label>
             <label htmlFor='selectDifficulty'>Select Difficulty:
               <select className='selectDifficulty form-select' id='selectDifficulty' onChange={handleChange}>
-                <option value='any'>Any Difficulty</option>
+                <option value='none'>None Selected</option>
                 <option value='easy'>Easy</option>
                 <option value='medium'>Medium</option>
                 <option value='hard'>Hard</option>
