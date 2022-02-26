@@ -53,6 +53,10 @@ function App() {
                 <option value='23'>History</option>
                 <option value='9'>General Knowledge</option>
                 <option value='24'>Politics</option>
+                <option value='22'>Geography</option>
+                <option value='20'>Mythology</option>
+                <option value='21'>Sports</option>
+                <option value='27'>Animals</option>
               </select>
             </label>
             <label htmlFor='selectDifficulty'>Select Difficulty:
